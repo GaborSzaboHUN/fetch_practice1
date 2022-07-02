@@ -54,7 +54,7 @@ window.addEventListener("load", loadEvent)
 
 // - - - - - - - - - - - - - - - - - - - - - - -
 
-const loadElement = function (countryName, capitalName, flag, continent) {
+const countriesElement = function (countryName, capitalName, continent, flag) {
     return `
     <p>Name: </p>
     <h1>${countryName}</h1>
@@ -64,25 +64,22 @@ const loadElement = function (countryName, capitalName, flag, continent) {
     <h3>${continent}</h3>
     <p>Flag: </p>
     <img src="${flag}" alt="Flag of ${countryName}">
+    <hr>
     `
 }
 
-const loadEvent = () => {
+const loadEvent = async function () {
     const rootElement = document.getElementById("root")
 
-    fetch("https://restcountries.com/v3.1/all")
-        .then(function (response) {
-            return response.json();
-        })
+    const response = await fetch("https://restcountries.com/v3.1/all")
+    const responseJson = await response.json()
+    console.log(responseJson)
 
-        .then(function (json) {
-
-            for (let i = 0; i < json.length; i++) {
-                countryNames.push(json[i].name.common)
-                rootElement.insertAdjacentHTML("beforeend", loadElement(json[i].name.common, json[i].capital, json[i].flags.png, json[i].continents))
-            }
-
-        })
+    for (const countryData of responseJson) {
+        rootElement.insertAdjacentHTML("beforeend", countriesElement(countryData.name.common, countryData.capital, countryData.continents, countryData.flags.png))
+    }
 }
+
+
 
 window.addEventListener("load", loadEvent)
