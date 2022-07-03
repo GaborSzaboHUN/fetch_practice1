@@ -1,0 +1,23 @@
+.search-bar {
+    max-width: 400px;
+    width: 100%;
+    height: 25px;
+
+    border: 1px solid lightsalmon;
+    border-radius: 5px;
+}
+
+#search-country {
+    max-width: 80px;
+    width: 100%;
+    height: 25px;
+
+    border-radius: 5px;
+
+    color: white;
+    background-color: lightsalmon;
+}
+
+#search-country:hover {
+    background-color: salmon;
+}
